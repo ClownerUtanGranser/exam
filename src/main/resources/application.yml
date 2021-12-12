@@ -1,0 +1,15 @@
+server:
+  port: 8081
+  error:
+    include-stacktrace: always
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/exam?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+    hibernate.ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
+    properties.hibernate.dialect : org.hibernate.dialect.MySQL8Dialect
