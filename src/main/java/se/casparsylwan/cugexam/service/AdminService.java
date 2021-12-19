@@ -88,6 +88,7 @@ public class AdminService {
 
     public List<CugExamUser> getAllExamUsers()
     {
+        log.info("getAllExamUsers()");
         List<CugExamUser> users = cugExamUserRepository.findAll();
         return users;
     }

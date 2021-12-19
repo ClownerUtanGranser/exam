@@ -89,6 +89,7 @@ public class AdminController {
     @GetMapping("users/all")
     public List<CugExamUser> getAllExamUsers()
     {
+        log.info("Get all users");
         return adminService.getAllExamUsers();
     }
 }

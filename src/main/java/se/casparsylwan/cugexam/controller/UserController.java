@@ -5,9 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.casparsylwan.cugexam.entity.CugExamUser;
-import se.casparsylwan.cugexam.entity.Question;
 import se.casparsylwan.cugexam.exception.PreconditionFailedException;
-import se.casparsylwan.cugexam.exception.ResourceNotFoundException;
+import se.casparsylwan.cugexam.model.QuestionWithResponse;
 import se.casparsylwan.cugexam.responseModel.CugExamUserWithJWT;
 import se.casparsylwan.cugexam.service.CugExamUserService;
 
@@ -37,9 +36,9 @@ public class UserController {
     @GetMapping("/{email}")
     public ResponseEntity<CugExamUser> getUser(@PathVariable String email)
     {
-        log.info("controller GetUser " + email);
-        CugExamUser cugExamUser = cugExamUserService.getUser(email).orElseThrow(() -> new ResourceNotFoundException("Customer with email could not be found: " + email));
-        log.info("GetUser " + cugExamUser);
+        log.info("controller GetUser Entity: " + email);
+        CugExamUser cugExamUser = cugExamUserService.getUser(email);
+        log.info("GetUser " + cugExamUser.getEmail());
         return ResponseEntity.ok(cugExamUser);
     }
 
@@ -52,11 +51,12 @@ public class UserController {
         return cugExamUserWithJWT;
     }
 
-    @PostMapping("exam/correction")
-    public List<Question> examCorrection(@RequestBody List<Question> responseList)
+    @PostMapping("exam/correction/{examName}")
+    public boolean examCorrection(@PathVariable String examName, @RequestBody List<QuestionWithResponse> responseList)
     {
-        log.info("Correction of exams");
-        cugExamUserService.examCorrection(responseList);
-        return cugExamUserService.examCorrection(responseList);
+        log.info("Correction of exam: " + examName);
+        responseList.forEach((res) -> System.out.println(res.getSelectedAnswre()));
+        //cugExamUserService.examCorrection(responseList);
+        return cugExamUserService.examCorrection(responseList, examName);
     }
 }

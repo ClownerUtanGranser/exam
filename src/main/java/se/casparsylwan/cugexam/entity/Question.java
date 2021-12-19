@@ -26,6 +26,5 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(name = "exam")
-    @JsonIgnore
     private Exam exam;
 }

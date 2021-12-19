@@ -23,7 +23,7 @@ public class CugExamUser {
     private String password;
     private String roles;
 
-    @OneToMany
+    @OneToMany(mappedBy = "examTaker")
     private List<ExamTaken> examsTaken;
 
 

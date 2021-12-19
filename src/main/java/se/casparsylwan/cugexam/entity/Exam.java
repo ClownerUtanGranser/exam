@@ -1,6 +1,7 @@
 package se.casparsylwan.cugexam.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,12 @@ public class Exam {
     @OneToMany(
             mappedBy = "exam"
     )
+    @JsonIgnoreProperties({"exam"})
     private List<Question> questions;
 
-    @ManyToOne
-    @JsonIgnore
-    private ExamTaken examTaken;
+    @OneToMany(
+            mappedBy = "examName"
+    )
+    @JsonIgnoreProperties({"examName"})
+    private List<ExamTaken> examTaken;
 }

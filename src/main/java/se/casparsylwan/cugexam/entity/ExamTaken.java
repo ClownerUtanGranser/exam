@@ -1,5 +1,7 @@
 package se.casparsylwan.cugexam.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +22,23 @@ public class ExamTaken {
     private Timestamp start;
     private Timestamp end;
 
-    @ManyToOne
+    @ManyToOne()
+    @JsonIgnoreProperties({"questions"})
     private Exam examName;
 
     @ManyToOne
+    @JoinColumn(name = "exam")
+    @JsonIgnore()
     private CugExamUser examTaker;
+
+    private boolean passed;
+
+    public ExamTaken(Timestamp end, Exam examName, CugExamUser examTaker, boolean passed)
+    {
+        this.end = end;
+        this.examName = examName;
+        this.examTaker = examTaker;
+        this.passed = passed;
+    }
 
 }
