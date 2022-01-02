@@ -1,15 +1,14 @@
 server:
-  port: 8081
+  port: 8080
   error:
     include-stacktrace: always
 spring:
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/exam?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password: root
+    driverClassName: ${SPRING_DATASOURCE_DRIVER-CLASS-NAME}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
-    hibernate.ddl-auto: create-drop
+    hibernate.ddl-auto: ${SPRING_JPA_HIBERNATE_DDL-AUTO}
     generate-ddl: true
     show-sql: true
-    properties.hibernate.dialect : org.hibernate.dialect.MySQL8Dialect
