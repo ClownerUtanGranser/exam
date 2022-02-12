@@ -5,9 +5,13 @@ server:
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/exam?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/exam?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
     username: root
     password: root
+  hikari:
+    data-source-properties:
+      useUnicode: true
+      characterEncoding: UTF-8
   jpa:
     hibernate.ddl-auto: create-drop
     generate-ddl: true
