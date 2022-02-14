@@ -9,9 +9,10 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
-    hibernate.ddl-auto: ${SPRING_JPA_HIBERNATE_DDL-AUTO}
     generate-ddl: true
     show-sql: true
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL-AUTO}
     connection:
       characterEncoding: utf-8
       CharSet: utf-8
