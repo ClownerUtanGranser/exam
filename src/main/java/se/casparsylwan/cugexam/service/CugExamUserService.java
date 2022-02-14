@@ -135,7 +135,7 @@ public class CugExamUserService {
             Exam exam = examRepository.findById(examName)
                     .orElseThrow(()-> new ResourceNotFoundException("Could not find Exam: " + responseList.get(0).getExam().getExamName()));
 
-            ExamTaken examTaken = new ExamTaken( Timestamp.from(Instant.now()), exam, user, true);
+            ExamTaken examTaken = new ExamTaken( exam, user, true);
             examTakenRepository.save(examTaken);
             return true;
         }
@@ -146,7 +146,7 @@ public class CugExamUserService {
             Exam exam = examRepository.findById(examName)
                     .orElseThrow(()-> new ResourceNotFoundException("Could not find Exam: " + responseList.get(0).getExam().getExamName()));
 
-            ExamTaken examTaken = new ExamTaken( Timestamp.from(Instant.now()), exam, user, false);
+            ExamTaken examTaken = new ExamTaken( exam, user, false);
             examTakenRepository.save(examTaken);
             return false;
         }

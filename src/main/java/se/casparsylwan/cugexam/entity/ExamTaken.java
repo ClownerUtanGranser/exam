@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @NoArgsConstructor
@@ -19,8 +18,10 @@ public class ExamTaken {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+/*
     private Timestamp start;
     private Timestamp end;
+*/
 
     @ManyToOne()
     @JsonIgnoreProperties({"questions"})
@@ -33,9 +34,8 @@ public class ExamTaken {
 
     private boolean passed;
 
-    public ExamTaken(Timestamp end, Exam examName, CugExamUser examTaker, boolean passed)
+    public ExamTaken( Exam examName, CugExamUser examTaker, boolean passed)
     {
-        this.end = end;
         this.examName = examName;
         this.examTaker = examTaker;
         this.passed = passed;
