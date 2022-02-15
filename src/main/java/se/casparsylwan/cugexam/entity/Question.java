@@ -16,17 +16,17 @@ public class Question {
     @Id
     private Long questionId;
     private Long questionNumber;
-    @Column(columnDefinition="LONGTEXT")
+//    @Column(columnDefinition="LONGTEXT")
     private String question;
     private String lang;
 
-    @Column(columnDefinition="LONGTEXT")
+//    @Column(columnDefinition="LONGTEXT")
     private String response1;
-    @Column(columnDefinition="LONGTEXT")
+//    @Column(columnDefinition="LONGTEXT")
     private String response2;
-    @Column(columnDefinition="LONGTEXT")
+//    @Column(columnDefinition="LONGTEXT")
     private String response3;
-    @Column(columnDefinition="LONGTEXT")
+//    @Column(columnDefinition="LONGTEXT")
     private String correctResponse;
 
     @ManyToOne
