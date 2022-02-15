@@ -20,11 +20,11 @@ public class Question {
     private String question;
     private String lang;
 
-    @Column(columnDefinition="TEXT")
+    @Column(length = 500)
     private String response1;
-    @Column(columnDefinition="TEXT")
+    @Column(length = 500)
     private String response2;
-    @Column(columnDefinition="TEXT")
+    @Column(length = 500)
     private String response3;
 
     private String correctResponse;
