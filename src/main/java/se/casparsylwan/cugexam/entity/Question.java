@@ -16,7 +16,7 @@ public class Question {
     private Long questionId;
     private Long questionNumber;
 //    @Column(columnDefinition="LONGTEXT")
-    @Column(columnDefinition="TEXT")
+    @Column(length = 500)
     private String question;
     private String lang;
 
