@@ -28,9 +28,6 @@ public class AuthenticationController {
     @Autowired
     private CugExamUserDetailsService cugExamUserDetailsService;
 
-    @Value("${tokensecret}")
-    private String testToken;
-
 
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody AutenticationRequest authRequest) throws Exception
@@ -54,6 +51,6 @@ public class AuthenticationController {
     @GetMapping("wakeup")
     public String wakeUp()
     {
-        return testToken;
+        return "WAKEUP";
     }
 }
