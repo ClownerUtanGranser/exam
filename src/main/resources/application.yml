@@ -17,3 +17,4 @@ spring:
       characterEncoding: utf-8
       CharSet: utf-8
       useUnicode: true
+tokensecret: ${tokensecret}

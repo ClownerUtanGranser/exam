@@ -2,6 +2,7 @@ package se.casparsylwan.cugexam.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,6 +28,9 @@ public class AuthenticationController {
     @Autowired
     private CugExamUserDetailsService cugExamUserDetailsService;
 
+    @Value("${tokensecret}")
+    private String testToken;
+
 
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody AutenticationRequest authRequest) throws Exception
@@ -50,6 +54,6 @@ public class AuthenticationController {
     @GetMapping("wakeup")
     public String wakeUp()
     {
-        return "{\"start\":\"Starting server\"}";
+        return testToken;
     }
 }
