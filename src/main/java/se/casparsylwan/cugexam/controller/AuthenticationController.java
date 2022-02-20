@@ -51,6 +51,6 @@ public class AuthenticationController {
     @GetMapping("wakeup")
     public String wakeUp()
     {
-        return "WAKEUP";
+        return "{\"text\":\"wakeup\"}";
     }
 }
