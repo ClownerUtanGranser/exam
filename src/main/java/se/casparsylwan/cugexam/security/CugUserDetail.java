@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 public class CugUserDetail implements UserDetails {
 
@@ -28,17 +27,24 @@ public class CugUserDetail implements UserDetails {
                 .collect(Collectors.toList());
     }
 
+    public String getName(){
+        return cugExamUser.getName();
+    }
+
+    public String getCountry(){
+        return cugExamUser.getCountry();
+    }
+
     @Override
     public String getPassword() {
         // TODO Auto-generated method stub
-        //System.out.println(customer.getPassword());
         return cugExamUser.getPassword();
     }
 
     @Override
     public String getUsername() {
         // TODO Auto-generated method stub
-        System.out.println(cugExamUser.getEmail());
+
         return cugExamUser.getEmail();
     }
 

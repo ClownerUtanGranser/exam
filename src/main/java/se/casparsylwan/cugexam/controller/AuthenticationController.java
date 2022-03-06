@@ -8,11 +8,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import se.casparsylwan.cugexam.security.AutenticationRequest;
+import se.casparsylwan.cugexam.security.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import se.casparsylwan.cugexam.security.AutenticationResponse;
-import se.casparsylwan.cugexam.security.CugExamUserDetailsService;
-import se.casparsylwan.cugexam.security.JwtUtil;
 
 @RestController
 @RequestMapping("v1/auth")
@@ -43,7 +40,7 @@ public class AuthenticationController {
             throw new Exception("Incorrect email or password", e);
         }
 
-        final UserDetails userDetails =  cugExamUserDetailsService.loadUserByUsername(authRequest.getUserEmail());
+        final CugUserDetail userDetails =  cugExamUserDetailsService.loadUserByUsername(authRequest.getUserEmail());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AutenticationResponse(jwt));
     }

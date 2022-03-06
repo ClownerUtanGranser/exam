@@ -1,6 +1,8 @@
 package se.casparsylwan.cugexam.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.casparsylwan.cugexam.entity.CugExamUser;
@@ -12,6 +14,7 @@ import se.casparsylwan.cugexam.repository.CugExamUserRepository;
 import se.casparsylwan.cugexam.repository.ExamRepository;
 import se.casparsylwan.cugexam.repository.QuestionRepository;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +48,7 @@ public class AdminService {
         return exam;
     }
 
-    public Exam createExamwithQuestions(Exam exam)
+    public Exam createExamWithQuestions(Exam exam)
     {
         log.info("AdminService save exam " + exam.getExamName());
         exam = examRepository.save(exam);
@@ -77,7 +80,6 @@ public class AdminService {
 
     public Exam updateExamQuestion(String examName, Question question)
     {
-
         Exam exam = examRepository.findById(examName).orElseThrow(() -> new ResourceNotFoundException("Could not find exam " + examName));
         question.setExam(exam);
         log.info("Log question: " + question.getQuestion());
@@ -91,5 +93,13 @@ public class AdminService {
         log.info("getAllExamUsers()");
         List<CugExamUser> users = cugExamUserRepository.findAll();
         return users;
+    }
+
+    public ByteArrayInputStream getAllExamUsersAsExcel()
+    {
+        log.info("Get All users to Excel");
+        List<CugExamUser> users = cugExamUserRepository.findAll();
+        ByteArrayInputStream in = ExcelHelper.cugExamUsersToExcel(users);
+        return in;
     }
 }

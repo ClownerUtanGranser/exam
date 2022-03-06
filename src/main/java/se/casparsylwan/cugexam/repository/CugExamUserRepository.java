@@ -5,6 +5,6 @@ import se.casparsylwan.cugexam.entity.CugExamUser;
 
 import java.util.Optional;
 
-public interface CugExamUserRepository extends JpaRepository<CugExamUser, Long> {
+public interface CugExamUserRepository extends JpaRepository<CugExamUser, String> {
     Optional<CugExamUser> findByEmail(String userName);
 }

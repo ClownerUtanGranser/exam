@@ -16,9 +16,9 @@ import java.util.List;
 public class CugExamUser {
 
     @Id
+    private String email;
     private String name;
     private String country;
-    private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String roles;

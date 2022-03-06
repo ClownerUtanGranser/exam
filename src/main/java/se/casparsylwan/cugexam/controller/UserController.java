@@ -33,6 +33,12 @@ public class UserController {
         return cugExamUserWithJWT;
     }
 
+    @PostMapping("/update")
+    public List<CugExamUser> updateUser(@RequestBody CugExamUser cugExamUser){
+        log.info("CugExamUser " + cugExamUser.getEmail());
+        return cugExamUserService.updateUser(cugExamUser);
+    }
+
     @GetMapping("/{email}")
     public ResponseEntity<CugExamUser> getUser(@PathVariable String email)
     {

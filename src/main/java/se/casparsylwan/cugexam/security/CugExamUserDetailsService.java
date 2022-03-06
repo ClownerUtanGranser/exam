@@ -21,7 +21,7 @@ public class CugExamUserDetailsService implements UserDetailsService {
     private CugExamUserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+    public CugUserDetail loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 
         Optional<CugExamUser> cugExamUser = userRepository.findByEmail(userEmail);
 
@@ -33,9 +33,6 @@ public class CugExamUserDetailsService implements UserDetailsService {
             cugExamUserExist = cugExamUser.get();
         }
 
-
-
-        return new User(cugExamUserExist.getEmail(), cugExamUserExist.getPassword(),
-                new ArrayList<>());
+        return new CugUserDetail(cugExamUserExist);
     }
 }

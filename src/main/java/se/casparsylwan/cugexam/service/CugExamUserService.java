@@ -19,11 +19,9 @@ import se.casparsylwan.cugexam.repository.ExamTakenRepository;
 import se.casparsylwan.cugexam.repository.QuestionRepository;
 import se.casparsylwan.cugexam.responseModel.CugExamUserWithJWT;
 import se.casparsylwan.cugexam.security.CugExamUserDetailsService;
+import se.casparsylwan.cugexam.security.CugUserDetail;
 import se.casparsylwan.cugexam.security.JwtUtil;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -61,7 +59,7 @@ public class CugExamUserService {
             log.info("User isEmpty from CugExamUserService");
             cugExamUser = examUserRepository.save(cugExamUser);
 
-            final UserDetails userDetails =  cugExamUserDetailsService.loadUserByUsername(cugExamUser.getEmail());
+            final CugUserDetail userDetails =  cugExamUserDetailsService.loadUserByUsername(cugExamUser.getEmail());
             final String jwt = jwtTokenUtil.generateToken(userDetails);
 
             CugExamUserWithJWT cugExamUserWithJWT = new CugExamUserWithJWT(cugExamUser, jwt);
@@ -71,6 +69,22 @@ public class CugExamUserService {
         else
         {
             throw new ResourceAlreadyExsistException("Email already exsist take an other email" + cugExamUser.getEmail());
+        }
+    }
+
+    public List<CugExamUser> updateUser(CugExamUser cugExamUser){
+        log.info("update user");
+        log.info("User recived from CugExamUserService");
+        Optional<CugExamUser> cugExamUserOptional = examUserRepository.findByEmail(cugExamUser.getEmail());
+
+        if(cugExamUserOptional.isEmpty())
+        {
+            throw new ResourceAlreadyExsistException("Email do not exsist take an other email" + cugExamUser.getEmail());
+        }
+        else
+        {
+            examUserRepository.save(cugExamUser);
+            return examUserRepository.findAll();
         }
     }
 
@@ -97,7 +111,7 @@ public class CugExamUserService {
         if(cugExamUserOptional.isPresent())
         {
             CugExamUser cugExamUser = cugExamUserOptional.get();
-            final UserDetails userDetails =  cugExamUserDetailsService.loadUserByUsername(cugExamUser.getEmail());
+            final CugUserDetail userDetails =  cugExamUserDetailsService.loadUserByUsername(cugExamUser.getEmail());
             final String jwt = jwtTokenUtil.generateToken(userDetails);
             return new CugExamUserWithJWT(cugExamUser, jwt);
         }
