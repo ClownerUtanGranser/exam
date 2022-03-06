@@ -28,6 +28,6 @@ public class Exam {
     @OneToMany(
             mappedBy = "examName"
     )
-    @JsonIgnoreProperties({"examName"})
+    @JsonIgnoreProperties({"examName","examTaker"})
     private List<ExamTaken> examTaken;
 }
