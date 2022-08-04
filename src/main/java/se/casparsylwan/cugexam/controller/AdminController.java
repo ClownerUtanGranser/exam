@@ -12,6 +12,7 @@ import se.casparsylwan.cugexam.entity.CugExamUser;
 import se.casparsylwan.cugexam.entity.Exam;
 import se.casparsylwan.cugexam.entity.Question;
 import se.casparsylwan.cugexam.exception.ResourceNotFoundException;
+import se.casparsylwan.cugexam.responseModel.CugExamUserResponse;
 import se.casparsylwan.cugexam.service.AdminService;
 
 import java.io.File;
@@ -94,7 +95,7 @@ public class AdminController {
     }
 
     @GetMapping("users/all")
-    public List<CugExamUser> getAllExamUsers()
+    public List<CugExamUserResponse> getAllExamUsers()
     {
         log.info("Get all users");
         return adminService.getAllExamUsers();

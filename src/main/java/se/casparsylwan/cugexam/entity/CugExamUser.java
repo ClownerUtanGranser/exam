@@ -19,7 +19,6 @@ public class CugExamUser {
     private String email;
     private String name;
     private String country;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String roles;
 

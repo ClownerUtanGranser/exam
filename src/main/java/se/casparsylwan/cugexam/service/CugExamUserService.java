@@ -17,7 +17,9 @@ import se.casparsylwan.cugexam.repository.CugExamUserRepository;
 import se.casparsylwan.cugexam.repository.ExamRepository;
 import se.casparsylwan.cugexam.repository.ExamTakenRepository;
 import se.casparsylwan.cugexam.repository.QuestionRepository;
+import se.casparsylwan.cugexam.responseModel.CugExamUserResponse;
 import se.casparsylwan.cugexam.responseModel.CugExamUserWithJWT;
+import se.casparsylwan.cugexam.responseModel.CugUserAdminResponse;
 import se.casparsylwan.cugexam.security.CugExamUserDetailsService;
 import se.casparsylwan.cugexam.security.CugUserDetail;
 import se.casparsylwan.cugexam.security.JwtUtil;
@@ -72,7 +74,7 @@ public class CugExamUserService {
         }
     }
 
-    public List<CugExamUser> updateUser(CugExamUser cugExamUser){
+    public List<CugExamUserResponse> updateUser(CugExamUser cugExamUser){
         log.info("update user");
         log.info("User recived from CugExamUserService");
         Optional<CugExamUser> cugExamUserOptional = examUserRepository.findByEmail(cugExamUser.getEmail());
@@ -83,12 +85,23 @@ public class CugExamUserService {
         }
         else
         {
+            if(cugExamUser.getName() == null) cugExamUser.setName(cugExamUserOptional.get().getName());
+            if(cugExamUser.getCountry() == null) cugExamUser.setCountry(cugExamUserOptional.get().getCountry());
+            if(cugExamUser.getPassword() == null) cugExamUser.setPassword(cugExamUserOptional.get().getPassword());
+            cugExamUser.setExamsTaken(cugExamUserOptional.get().getExamsTaken());
+            cugExamUser.setRoles(cugExamUserOptional.get().getRoles());
+
             examUserRepository.save(cugExamUser);
-            return examUserRepository.findAll();
+            List<CugExamUser> users = examUserRepository.findAll();
+
+            return users
+                    .stream()
+                    .map((user) -> new CugExamUserResponse(user))
+                    .collect(Collectors.toList());
         }
     }
 
-    public CugExamUser getUser(String email) {
+    public CugUserAdminResponse getUser(String email) {
         log.info("CugExamService getUser " + email);
 
         Optional<CugExamUser> cugExamUserOptional = examUserRepository.findByEmail(email);
@@ -96,7 +109,7 @@ public class CugExamUserService {
         {
             CugExamUser cugExamUser = cugExamUserOptional.get();
             log.info("CugExamService getUser: " + cugExamUser.getName());
-            return cugExamUser;
+            return new CugUserAdminResponse(cugExamUser) ;
         }
         else
         {

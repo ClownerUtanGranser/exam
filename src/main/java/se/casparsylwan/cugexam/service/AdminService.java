@@ -13,10 +13,12 @@ import se.casparsylwan.cugexam.exception.ResourceNotFoundException;
 import se.casparsylwan.cugexam.repository.CugExamUserRepository;
 import se.casparsylwan.cugexam.repository.ExamRepository;
 import se.casparsylwan.cugexam.repository.QuestionRepository;
+import se.casparsylwan.cugexam.responseModel.CugExamUserResponse;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -88,11 +90,14 @@ public class AdminService {
         return exam;
     }
 
-    public List<CugExamUser> getAllExamUsers()
+    public List<CugExamUserResponse> getAllExamUsers()
     {
         log.info("getAllExamUsers()");
         List<CugExamUser> users = cugExamUserRepository.findAll();
-        return users;
+        return users
+                .stream()
+                .map((user) -> new CugExamUserResponse(user))
+                .collect(Collectors.toList());
     }
 
     public ByteArrayInputStream getAllExamUsersAsExcel()

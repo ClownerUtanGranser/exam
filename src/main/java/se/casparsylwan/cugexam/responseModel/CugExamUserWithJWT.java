@@ -5,10 +5,14 @@ import lombok.Data;
 import se.casparsylwan.cugexam.entity.CugExamUser;
 
 @Data
-@AllArgsConstructor
 public class CugExamUserWithJWT {
 
-    private CugExamUser cugExamUser;
+    private CugExamUserResponse cugExamUser;
     private String jwt;
+
+    public CugExamUserWithJWT(CugExamUser cugExamUser, String jwt){
+        this.cugExamUser = new CugExamUserResponse(cugExamUser);
+        this.jwt = jwt;
+    }
 
 }

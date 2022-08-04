@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import se.casparsylwan.cugexam.entity.CugExamUser;
 import se.casparsylwan.cugexam.exception.PreconditionFailedException;
 import se.casparsylwan.cugexam.model.QuestionWithResponse;
+import se.casparsylwan.cugexam.responseModel.CugExamUserResponse;
 import se.casparsylwan.cugexam.responseModel.CugExamUserWithJWT;
+import se.casparsylwan.cugexam.responseModel.CugUserAdminResponse;
 import se.casparsylwan.cugexam.service.CugExamUserService;
 
 import java.util.List;
@@ -34,16 +36,16 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public List<CugExamUser> updateUser(@RequestBody CugExamUser cugExamUser){
-        log.info("CugExamUser " + cugExamUser.getEmail());
+    public List<CugExamUserResponse> updateUser(@RequestBody CugExamUser cugExamUser){
+        log.info("CugExamUser update " + cugExamUser.getEmail());
         return cugExamUserService.updateUser(cugExamUser);
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<CugExamUser> getUser(@PathVariable String email)
+    public ResponseEntity<CugUserAdminResponse> getUser(@PathVariable String email)
     {
         log.info("controller GetUser Entity: " + email);
-        CugExamUser cugExamUser = cugExamUserService.getUser(email);
+        CugUserAdminResponse cugExamUser = cugExamUserService.getUser(email);
         log.info("GetUser " + cugExamUser.getEmail());
         return ResponseEntity.ok(cugExamUser);
     }
